@@ -2,7 +2,7 @@
 
 use strict;
 use Test::More tests=>49;
-use Hash::Merge;
+use Hash::MergeX;
 
 my %left = ( ss => 'left',
              sa => 'left',
@@ -25,7 +25,7 @@ my %right = ( ss => 'right',
 	      hh => { right=>1 } );
 
 # Test left precedence
-my $merge = Hash::Merge->new();
+my $merge = Hash::MergeX->new();
 ok($merge->get_behavior() eq 'LEFT_PRECEDENT', 'no arg default is LEFT_PRECEDENT');
 
 
@@ -56,7 +56,7 @@ is_deeply( $rp{hs},	'right',						'Right Precedent - Hash on Scalar' );
 is_deeply( $rp{ha},	[ 1, 'r1', 'r2' ], 				'Right Precedent - Hash on Array' );
 is_deeply( $rp{hh},	{ left=>1, right=>1 },			'Right Precedent - Hash on Hash' );
 
-Hash::Merge::set_behavior( 'STORAGE_PRECEDENT' );
+Hash::MergeX::set_behavior( 'STORAGE_PRECEDENT' );
 ok($merge->get_behavior() eq 'RIGHT_PRECEDENT', '"global" function does not affect object');
 $merge->set_behavior('STORAGE_PRECEDENT');
 

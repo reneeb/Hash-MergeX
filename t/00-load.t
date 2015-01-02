@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-    use_ok( 'Hash::Merge' ) || BAIL_OUT("Couldn't load Hash::Merge");
+    use_ok( 'Hash::MergeX' ) || BAIL_OUT("Couldn't load Hash::MergeX");
 }
 
-diag( "Testing Hash::Merge $Hash::Merge::VERSION, Perl $], $^X" );
+diag( "Testing Hash::MergeX $Hash::MergeX::VERSION, Perl $], $^X" );

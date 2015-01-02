@@ -2,7 +2,7 @@
 
 use strict;
 use Test::More tests=>21;
-use Hash::Merge;
+use Hash::MergeX;
 
 my %left = ( ss => 'left',
              sa => 'left',
@@ -25,7 +25,7 @@ my %right = ( ss => 'right',
 	      hh => { right=>1 } );
 
 # Test left precedence
-my $merge = Hash::Merge->new();
+my $merge = Hash::MergeX->new();
 ok($merge->get_behavior() eq 'LEFT_PRECEDENT', 'no arg default is LEFT_PRECEDENT');
 
 $merge->specify_behavior_part({

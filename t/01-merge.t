@@ -2,7 +2,7 @@
 
 use strict;
 use Test::More tests=>45;
-use Hash::Merge qw( merge );
+use Hash::MergeX qw( merge );
 
 my %left = ( ss => 'left',
              sa => 'left',
@@ -25,7 +25,7 @@ my %right = ( ss => 'right',
 	      hh => { right=>1 } );
 
 # Test left precedence
-Hash::Merge::set_behavior( 'LEFT_PRECEDENT' );
+Hash::MergeX::set_behavior( 'LEFT_PRECEDENT' );
 my %lp = %{merge( \%left, \%right )};
 
 is_deeply( $lp{ss},	'left',						'Left Precedent - Scalar on Scalar' );
@@ -39,7 +39,7 @@ is_deeply( $lp{ha},	{ left=>1 },				'Left Precedent - Hash on Array' );
 is_deeply( $lp{hh},	{ left=>1, right=>1 },		'Left Precedent - Hash on Hash' );
 
 
-Hash::Merge::set_behavior( 'RIGHT_PRECEDENT' );
+Hash::MergeX::set_behavior( 'RIGHT_PRECEDENT' );
 my %rp = %{merge( \%left, \%right )};
 
 is_deeply( $rp{ss},	'right',						'Right Precedent - Scalar on Scalar' );
@@ -52,7 +52,7 @@ is_deeply( $rp{hs},	'right',						'Right Precedent - Hash on Scalar' );
 is_deeply( $rp{ha},	[ 1, 'r1', 'r2' ], 				'Right Precedent - Hash on Array' );
 is_deeply( $rp{hh},	{ left=>1, right=>1 },			'Right Precedent - Hash on Hash' );
 
-Hash::Merge::set_behavior( 'STORAGE_PRECEDENT' );
+Hash::MergeX::set_behavior( 'STORAGE_PRECEDENT' );
 my %sp = %{merge( \%left, \%right )};
 
 is_deeply( $sp{ss},	'left',						'Storage Precedent - Scalar on Scalar' );
@@ -65,7 +65,7 @@ is_deeply( $sp{hs},	{ left=>1 },				'Storage Precedent - Hash on Scalar' );
 is_deeply( $sp{ha},	{ left=>1 },				'Storage Precedent - Hash on Array' );
 is_deeply( $sp{hh},	{ left=>1, right=>1 },		'Storage Precedent - Hash on Hash' );
 
-Hash::Merge::set_behavior( 'RETAINMENT_PRECEDENT' );
+Hash::MergeX::set_behavior( 'RETAINMENT_PRECEDENT' );
 my %rep = %{merge( \%left, \%right )};
 
 is_deeply( $rep{ss},	[ 'left', 'right' ],		'Retainment Precedent - Scalar on Scalar' );
@@ -81,7 +81,7 @@ is_deeply( $rep{ha},	{ left=>1, r1=>'r1', r2=>'r2' },
 	   'Retainment Precedent - Hash on Array' );
 is_deeply( $rep{hh},	{ left=>1, right=>1 },		'Retainment Precedent - Hash on Hash' );
 
-Hash::Merge::specify_behavior( {
+Hash::MergeX::specify_behavior( {
 				SCALAR => {
 					   SCALAR => sub { $_[0] },
 					   ARRAY  => sub { $_[0] },
